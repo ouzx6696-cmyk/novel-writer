@@ -91,7 +91,7 @@ novel-writer（故事创作）：报告能力 → state/author_persona.md 项目
 
 前者交付**观察与证据**，后者依据本书故事承诺裁决采用、改写、舍弃哪些能力。转译一次完成，不维护独立转接文件；报告的证据引文不进人格，人格只留行文机制。
 
-上游仓库：[author-persona-skill](https://github.com/ouzx6696-cmyk/author_persona_skill)
+上游仓库：[author-persona-skill](https://github.com/ouzx6696-cmyk/author-persona-skill)
 
 ## 目录导览
 
