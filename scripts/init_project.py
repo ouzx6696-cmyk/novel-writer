@@ -29,7 +29,7 @@ DIRS = [
 
 TEMPLATES = {
     "author_persona.md": "state/author_persona.md",
-    "story_bible.md": "state/story_bible.md",
+    "story_foundation.md": "state/story_foundation.md",
     "current_state.md": "state/current_state.md",
     "memory.md": "state/memory.md",
 }
@@ -67,7 +67,7 @@ def main(argv=None) -> int:
     print(f"项目根: {root.as_posix()}")
     print(f"新建: {created if created else '无'}")
     print(f"跳过: {skipped if skipped else '无'}")
-    print("下一步: 填 state/author_persona.md 与 state/story_bible.md → 写第一卷纲和第一幕纲 → 试写验收 → 把 memory.md 项目状态改为 ready。")
+    print("下一步: 填 state/author_persona.md 与 state/story_foundation.md → 写第一卷纲和第一幕纲 → 把 memory.md 项目状态改为 可写。")
     return 0
 
 

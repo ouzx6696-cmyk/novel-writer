@@ -21,7 +21,7 @@ def test_init_creates_skeleton(project):
         assert (project / rel).is_dir(), rel
     for rel in (
         "state/author_persona.md",
-        "state/story_bible.md",
+        "state/story_foundation.md",
         "state/current_state.md",
         "state/memory.md",
     ):
@@ -52,3 +52,25 @@ def test_referenced_files_exist():
     skill = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
     for rel in set(re.findall(r"(?:references|scripts|assets)/[\w./-]+\.(?:md|py)", skill)):
         assert (SKILL_ROOT / rel).is_file(), rel
+
+
+def test_persona_has_default_identity():
+    persona = (SKILL_ROOT / "assets" / "templates" / "author_persona.md").read_text(encoding="utf-8")
+    assert "我是一名网络小说作者，擅长番茄小说风格，正在创作一本" in persona
+    assert "七、来源与修订" in persona
+
+
+def test_no_trial_writing_left():
+    """试写模块已整体移除，文档与模板不得残留。"""
+    targets = [
+        SKILL_ROOT / "SKILL.md",
+        SKILL_ROOT / "README.md",
+        SKILL_ROOT / "manifest.yaml",
+        SKILL_ROOT / "scripts" / "init_project.py",
+        SKILL_ROOT / "references" / "style_report_mapping.md",
+        SKILL_ROOT / "assets" / "templates" / "author_persona.md",
+        SKILL_ROOT / "assets" / "templates" / "memory.md",
+        SKILL_ROOT / "assets" / "examples" / "persona_translation_example.md",
+    ]
+    for path in targets:
+        assert "试写" not in path.read_text(encoding="utf-8"), path.name

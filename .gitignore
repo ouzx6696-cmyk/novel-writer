@@ -16,6 +16,9 @@ dist/
 .DS_Store
 Thumbs.db
 
+# Agent 工作区（计划、缓存等，不进仓库）
+.zcode/plans/
+
 # 临时文件
 *.tmp
 *.log

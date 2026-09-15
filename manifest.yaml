@@ -1,6 +1,6 @@
 name: novel-writer
 description: "当需要策划、创作、续写或修订中文长篇小说时使用——用户提到开新书、定题材、写故事大纲、写章纲、续写下一章、整理设定人物与世界观、检查前后矛盾与伏笔、卡文、改稿定稿、去AI味时即应触发，无需点名本技能。以虚拟作家人格（不变量层决策句 + 场景姿态层）、故事承诺与主题命题、卷/幕/章三级纲要和一份状态快照维护长篇连续性；文学判断由虚拟作家完成，正文定稿由用户确认。本技能不负责风格报告的生成与分析（报告产出属 author-persona-skill），只把外部报告按转译映射表一次落位进人格与设定。"
-version: "0.7.1"
+version: "0.8.0"
 
 permissions:
   - read_files
@@ -17,7 +17,7 @@ functions:
     outputs:
       - name: state/
         type: directory
-        description: "author_persona.md、story_bible.md、current_state.md、memory.md"
+        description: "author_persona.md、story_foundation.md、current_state.md、memory.md"
       - name: workspace/
         type: directory
         description: "volumes / acts / outlines / drafts / chapters / summaries"
@@ -26,7 +26,11 @@ core_constraint: |
   文学判断由虚拟作家完成，正文定稿由用户确认。
   本技能不做自动裁决：没有检查项，没有评分，没有必须通过的关卡。
   核心是正文：章纲 → 草稿 → 定稿；人格、设定、纲要、状态只为让下一章写得更好而存在。
+  新项目分两条路线：用户已有主线或剧情大纲就直接展开填充；用户只有一个灵感就先进入讨论创作阶段，收敛出主线再落盘。讨论未收敛前不建目录、不写纲要。
+  人格的"我是谁"默认写网络小说作者、擅长番茄小说风格，只把题材换成这本书的题材；报告平台语境不是番茄时连同平台标识一并换上。
   人格分不变量层（每章必读的决策句）与姿态层（场景类型 → 语域）；冲突时 不变量层 > 红线 > 风格基调 > 姿态层与技法卡。
+  技法卡 3–5 张，每张触发 / 写法 / 失效各一行；有报告时每张对应一张真实技法卡并逐条回验 evidence，不转述报告定义、不复制证据引文。
   风格报告按 references/style_report_mapping.md 一次落位进人格与设定，不维护转接文件；证据引文不进人格。
+  memory.md 只记项目级元信息（状态、坐标与章状态、下一步、用户偏好），剧情现状写 current_state.md。
   current_state.md 回答"此刻接着写需要记得什么"，每章只更新变动部分，幕末整体重写。
-  工程化只做最小约束：目录与命名、模板形状，加一个只摆骨架的脚本。
+  工程化只做最小约束：脚本是落盘工具，不是开工门槛。
