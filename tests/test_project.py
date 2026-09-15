@@ -86,10 +86,40 @@ def test_story_foundation_has_world_setting():
     assert "真缺点" in foundation
 
 
+def test_story_foundation_has_main_line():
+    """全书主线必须有一句话的落点——卷纲要回答'这是主线哪一步'，主线本身不能无处可写。"""
+    foundation = (SKILL_ROOT / "assets" / "templates" / "story_foundation.md").read_text(encoding="utf-8")
+    assert "全书主线" in foundation
+    assert "终点画面" in foundation
+
+
+def test_volume_outline_maps_ladder_to_acts_not_chapters():
+    """冲突阶梯落在幕级，不能越过幕直接对应章。"""
+    volume = (SKILL_ROOT / "assets" / "templates" / "volume_outline.md").read_text(encoding="utf-8")
+    assert "对应幕" in volume
+    assert "对应章" not in volume
+
+
 def test_volume_outline_has_craft_fields():
     volume = (SKILL_ROOT / "assets" / "templates" / "volume_outline.md").read_text(encoding="utf-8")
     for field in ("本卷在主线哪一步", "对抗力量", "输不起", "情绪走向", "主导驱动力", "信息差", "冲突阶梯"):
         assert field in volume, field
+
+
+def test_init_runs_before_filling_state():
+    """路线一必须先跑 init 再填文件；顺序写反会让前三步无处落笔。"""
+    skill = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
+    route = skill.split("路线一")[1].split("路线二")[0]
+    assert route.index("init_project.py") < route.index("写人格")
+
+
+def test_skill_and_readme_route_one_agree():
+    """两个文档的路线一步骤必须同构，避免只说给一边听。"""
+    skill = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
+    readme = (SKILL_ROOT / "README.md").read_text(encoding="utf-8")
+    for text in (skill, readme):
+        route = text.split("路线一")[1].split("路线二")[0]
+        assert "落盘" in route and "读人格来源" in route and "写故事根基" in route
 
 
 def test_references_exist_and_are_linked():
