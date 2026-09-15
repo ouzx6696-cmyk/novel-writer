@@ -74,3 +74,27 @@ def test_no_trial_writing_left():
     ]
     for path in targets:
         assert "试写" not in path.read_text(encoding="utf-8"), path.name
+
+
+def test_story_foundation_has_world_setting():
+    foundation = (SKILL_ROOT / "assets" / "templates" / "story_foundation.md").read_text(encoding="utf-8")
+    assert "世界观与规则" in foundation
+    for level in ("世界级", "社会级", "个人级"):
+        assert level in foundation, level
+    # 三要素必须写在模板里，缺代价读者就会问"那就用啊"
+    assert "代价" in foundation
+    assert "真缺点" in foundation
+
+
+def test_volume_outline_has_craft_fields():
+    volume = (SKILL_ROOT / "assets" / "templates" / "volume_outline.md").read_text(encoding="utf-8")
+    for field in ("本卷在主线哪一步", "对抗力量", "输不起", "情绪走向", "主导驱动力", "信息差", "冲突阶梯"):
+        assert field in volume, field
+
+
+def test_references_exist_and_are_linked():
+    for name in ("outline_craft.md", "setting_craft.md", "anti_ai.md", "style_report_mapping.md"):
+        assert (SKILL_ROOT / "references" / name).is_file(), name
+    skill = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
+    assert "references/outline_craft.md" in skill
+    assert "references/setting_craft.md" in skill

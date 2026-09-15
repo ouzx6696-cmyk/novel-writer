@@ -31,7 +31,7 @@
 
 1. **读人格来源**：有外部风格能力报告就完整读一遍，按 `references/style_report_mapping.md` 转译；没有就按用户描述提炼。
 2. **写人格**：填 `state/author_persona.md`，不变量层写决策句，姿态层填场景表，技法层按回验规则落 3–5 张。
-3. **写故事根基**：填 `state/story_foundation.md`，故事承诺六件事、主题命题、Canon、主要人物引擎。
+3. **写故事根基**：填 `state/story_foundation.md`，故事承诺六件事、主题命题、世界观与规则、Canon、主要人物引擎。
 4. **写纲要**：第一卷纲、第一幕纲。
 5. **落盘开工**：跑 `init_project.py` 摆好目录与模板，把 `memory.md` 项目状态改为"可写"，开始写第一章。
 
@@ -60,7 +60,7 @@
 ```text
 state/
   author_persona.md     人格：每章开写前完整读一遍
-  story_foundation.md   故事承诺、主题命题、Canon、人物引擎
+  story_foundation.md   故事承诺、主题命题、世界观与规则、Canon、人物引擎
   current_state.md      此刻接着写需要记得什么
   memory.md             项目状态、坐标与章状态、下一步、用户偏好（只记项目级元信息）
 workspace/
@@ -94,6 +94,12 @@ python scripts/init_project.py <项目根>
 
 **技法层要简练、准确、真实**：技法卡 3–5 张，每张触发 / 写法 / 失效各一行。有外部报告时，每张必须对应报告里一张真实技法卡并标出 ID，逐条回验它的 evidence 后才落位；不转述报告的 `definition` 与 `serves_purpose`，不复制证据引文。回验不过的卡舍弃。
 
+## 设定与规划
+
+**设定**只建会影响人物选择的：加一条前先问"谁的行动会被它改变、读者会在正文里感受到吗"，答不出就不写。世界观从主角第一章所在的地方往外推，不先画地图；每个地点都要在已规划的场景里用得上。势力写实际谁说了算。规则分世界级 / 社会级 / 个人级，每条写全三要素——能做什么、不能做什么、**代价**；不写代价，读者就会问"那就用啊，为什么不用"。完整方法与自检见 `references/setting_craft.md`。
+
+**卷纲**的判据只有一条：拿着它能不能直接推出每一章该往哪走。拆主线时每卷是总主线的子集（指着主线问"没有这卷，主线走得完吗"），卷数由断点倒推而不是先定几卷。展开单卷时核心冲突要一句话说完、冲突阶梯 2–4 层、情绪走向是弧线不是词、信息差只定卷级起点到终点。下一卷不重新套模板，而是让现有角色说话，从他们行动方向的交汇点里推出主线。完整方法见 `references/outline_craft.md`。
+
 ## 与 author-persona-skill 协作
 
 两个技能构成一套创作系统的先后两环：
@@ -119,6 +125,8 @@ novel-writer（故事创作）：报告能力 → state/author_persona.md 项目
 | `scripts/init_project.py` | 建骨架、复制模板 |
 | `scripts/build_release.py` | 白名单打包：产出无缓存、无测试的发布 zip |
 | `references/anti_ai.md` | 去 AI 味的 10 条写前场景纪律 + 写后回看清单 |
+| `references/outline_craft.md` | 卷纲与主线拆纲方法：主线子集、断点法、冲突阶梯、情绪走向、信息差 |
+| `references/setting_craft.md` | 设定与人物方法：规则三层级三要素、可感知、角色是决策引擎 |
 | `references/style_report_mapping.md` | 外部风格报告四层 → 人格与设定的落位表 |
 | `assets/templates/` | 9 份模板：4 份状态文件 + 卷 / 幕 / 章纲要与摘要 |
 | `assets/examples/persona_translation_example.md` | 一次完整转译的示范与取舍记录 |
@@ -129,7 +137,7 @@ novel-writer（故事创作）：报告能力 → state/author_persona.md 项目
 python -m pytest tests/ -q
 ```
 
-7 项用例，只覆盖建骨架脚本与文档自洽（技能描述与 manifest 逐字一致、引用的文件都存在、人格默认身份句在位）。刻意不覆盖"写作质量"——那不归工具裁决。
+10 项用例，只覆盖建骨架脚本与文档自洽（技能描述与 manifest 逐字一致、引用的文件都存在、人格默认身份句在位、世界观与卷纲模板含必备字段）。刻意不覆盖"写作质量"——那不归工具裁决。
 
 ## 安装
 
